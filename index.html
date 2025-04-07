@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title> Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/ros3djs/1.0.0/ros3d.min.js"></script>
+</head>
+<body>
+
+  <div class="sidebar" id="sidebar">
+    <h2 class="logo"><i class="fas fa-robot"></i>Dashboard</h2>
+    <ul>
+      <li onclick="showPage('home')"><i class="fas fa-home"></i> <span>Home</span></li>
+      <li><a href="map.html"><i class="fas fa-map"></i> Live Map</a></li>
+      <li><a href="control.html"><i class="fas fa-gamepad"></i> Control</a></li>
+      <li><a href="settings.html"><i class="fas fa-cog"></i> Settings</a></li>
+      <li><a href="docs.html"><i class="fas fa-book"></i> Docs</a></li>
+    </ul>
+    <button class="toggle-btn" onclick="toggleSidebar()"><i class="fas fa-angle-right"></i></button>
+  </div>
+
+  <div class="main-content" id="mainContent">
+    <div class="dashboard">
+      <div class="panel">
+        <h3><i class="fas fa-battery-half"></i> Battery</h3>
+        <div class="battery"><span id="battery-level">80%</span></div>
+      </div>
+      <div class="panel">
+        <h3><i class="fas fa-satellite-dish"></i> ROS Topic</h3>
+        <p id="ros-topic">/map</p>
+      </div>
+      <div class="panel">
+        <h3><i class="fas fa-chart-line"></i> Sensor</h3>
+        <p id="sensor-data">Lidar: Active</p>
+      </div>
+      <div class="panel">
+        <h3><i class="fas fa-wifi"></i> Network</h3>
+        <p id="network-status">Connected</p>
+      </div>
+    </div>
+
+    <div class="camera-container">
+      <h2><i class="fas fa-video"></i> Camera View</h2>
+      <div class="camera-feed">
+        <video id="liveFeed" autoplay playsinline></video>
+        <p id="noFeed">Live feed unavailable</p>
+      </div>
+    </div>
+
+    <!-- Pages -->
+    <section id="home" class="page">
+      <h2><i class="fas fa-home"></i> Welcome to ROS Dashboard</h2>
+      <p>Monitor and control your robot in real time.</p>
+    </section>
+
+    <section id="map" class="page hidden">
+      <h2><i class="fas fa-map"></i> Live Map</h2>
+      <div id="map-container"></div>
+    </section>
+
+    <section id="control" class="page hidden">
+      <h2><i class="fas fa-gamepad"></i> Control Panel</h2>
+      <div class="controls">
+        <button onclick="moveRobot('forward')"><i class="fas fa-arrow-up"></i></button>
+        <button onclick="moveRobot('left')"><i class="fas fa-arrow-left"></i></button>
+        <button onclick="moveRobot('right')"><i class="fas fa-arrow-right"></i></button>
+        <button onclick="moveRobot('backward')"><i class="fas fa-arrow-down"></i></button>
+        <button onclick="moveRobot('stop')"><i class="fas fa-stop-circle"></i></button>
+      </div>
+    </section>
+
+    <section id="settings" class="page hidden">
+      <h2><i class="fas fa-cog"></i> Settings</h2>
+      <label for="topic">ROS Topic:</label>
+      <input type="text" id="topic" placeholder="/map">
+      <button onclick="saveSettings()"><i class="fas fa-save"></i> Save</button>
+    </section>
+
+    <section id="docs" class="page hidden">
+      <h2><i class="fas fa-book"></i> Documentation</h2>
+      <p>Instructions on how to operate the dashboard will go here.</p>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

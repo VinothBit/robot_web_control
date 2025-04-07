@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Robot Real-Time Control</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/roslibjs/1.1.0/roslib.min.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: radial-gradient(circle at center, #001f3f, #000814);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .main-content {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.3);
+      text-align: center;
+      border: 1px solid #00d4ff;
+      width: 420px;
+    }
+
+    .toggle-btn {
+      display: inline-block;
+      margin-bottom: 20px;
+      padding: 10px 18px;
+      background-color: #00d4ff;
+      color: #000;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .toggle-btn:hover {
+      background-color: #008cba;
+      color: #fff;
+    }
+
+    h2 {
+      margin-bottom: 30px;
+      font-size: 26px;
+      color: #00d4ff;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(3, auto);
+      gap: 15px;
+      justify-items: center;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .controls button {
+      width: 70px;
+      height: 70px;
+      font-size: 20px;
+      border: none;
+      border-radius: 50%;
+      background-color: #00d4ff;
+      color: #000;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00d4ff80;
+      transition: 0.2s ease-in-out;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .controls button:hover,
+    .controls button.active {
+      background-color: #00bfff;
+      color: #fff;
+      transform: scale(1.08);
+      box-shadow: 0 0 12px #00d4ff;
+    }
+
+    .label {
+      margin-top: 15px;
+      color: #ccc;
+      font-size: 14px;
+    }
+
+    #status {
+      margin-top: 20px;
+      color: #00ffcc;
+      font-weight: bold;
+      font-size: 16px;
+      transition: 0.2s;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <a href="index.html" class="toggle-btn">⬅ Back to Dashboard</a>
+    <h2>Real-Time Robot Control</h2>
+
+    <div class="controls">
+      <!-- Row 1 -->
+      <div></div>
+      <button id="forwardBtn" onclick="moveRobot('forward')" title="Move Forward">
+        <div><i class="fas fa-arrow-up"></i><br><strong>W</strong></div>
+      </button>
+      <div></div>
+
+      <!-- Row 2 -->
+      <button id="leftBtn" onclick="moveRobot('left')" title="Turn Left">
+        <div><i class="fas fa-arrow-left"></i><br><strong>A</strong></div>
+      </button>
+      <button id="stopBtn" onclick="moveRobot('stop')" title="Stop">
+        <div><i class="fas fa-stop-circle"></i><br><strong>⏹</strong></div>
+      </button>
+      <button id="rightBtn" onclick="moveRobot('right')" title="Turn Right">
+        <div><i class="fas fa-arrow-right"></i><br><strong>D</strong></div>
+      </button>
+
+      <!-- Row 3 -->
+      <div></div>
+      <button id="backwardBtn" onclick="moveRobot('backward')" title="Move Backward">
+        <div><i class="fas fa-arrow-down"></i><br><strong>S</strong></div>
+      </button>
+      <div></div>
+    </div>
+
+    <p class="label">Use buttons or keys: W / A / S / D / Arrow keys</p>
+    <p id="status">Status: Waiting for command...</p>
+  </div>
+
+  <script>
+    const ros = new ROSLIB.Ros({ url: 'ws://localhost:9090' });
+
+    const status = document.getElementById("status");
+
+    function moveRobot(direction) {
+      const cmdVel = new ROSLIB.Topic({
+        ros: ros,
+        name: '/cmd_vel',
+        messageType: 'geometry_msgs/Twist'
+      });
+
+      const twist = new ROSLIB.Message({
+        linear: {
+          x: direction === 'forward' ? 0.5 : direction === 'backward' ? -0.5 : 0,
+          y: 0,
+          z: 0
+        },
+        angular: {
+          x: 0,
+          y: 0,
+          z: direction === 'left' ? 0.5 : direction === 'right' ? -0.5 : 0
+        }
+      });
+
+      cmdVel.publish(twist);
+      status.innerText = `Status: Moving ${direction.toUpperCase()}`;
+      animateButton(direction);
+    }
+
+    function animateButton(dir) {
+      const btnMap = {
+        forward: "forwardBtn",
+        backward: "backwardBtn",
+        left: "leftBtn",
+        right: "rightBtn",
+        stop: "stopBtn"
+      };
+      const btn = document.getElementById(btnMap[dir]);
+      if (!btn) return;
+      btn.classList.add("active");
+      setTimeout(() => btn.classList.remove("active"), 300);
+    }
+
+    document.addEventListener("keydown", (e) => {
+      switch (e.key.toLowerCase()) {
+        case "w":
+        case "arrowup":
+          moveRobot("forward");
+          break;
+        case "s":
+        case "arrowdown":
+          moveRobot("backward");
+          break;
+        case "a":
+        case "arrowleft":
+          moveRobot("left");
+          break;
+        case "d":
+        case "arrowright":
+          moveRobot("right");
+          break;
+        case " ":
+          moveRobot("stop");
+          break;
+      }
+    });
+  </script>
+</body>
+</html>

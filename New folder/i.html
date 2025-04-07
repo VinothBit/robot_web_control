@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Controller Dashboard</title>
+    <link rel="stylesheet" href="st.css">
+    <script src="js/main.js" defer></script>
+    <script src="js/control.js" defer></script>
+    <script src="js/settings.js" defer></script>
+</head>
+<body class="dark-mode">
+    <!-- 🔹 Header -->
+    <header>
+        <h1>Robot Controller</h1>
+        <button id="mode-toggle">🌙 Dark Mode</button>
+    </header>
+
+    <!-- 🔹 Sidebar Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#" data-section="home">🏠 Home</a></li>
+            <li><a href="#" data-section="live-map">🗺 Live Map</a></li>
+            <li><a href="#" data-section="robot-control">🤖 Control</a></li>
+            <li><a href="#" data-section="settings">⚙ Settings</a></li>
+            <li><a href="#" data-section="docs">📜 Docs</a></li>
+        </ul>
+    </nav>
+
+    <!-- 🔹 Main Content -->
+    <main>
+        <!-- 🔸 Home Section -->
+        <section id="home">
+            <h2>Welcome to the Robot Controller</h2>
+            <p>Monitor, control, and configure your autonomous robot with ease.</p>
+        </section>
+
+        <!-- 🔸 Live Map (RViz Viewer) -->
+        <section id="live-map" class="hidden">
+            <h2>Live Map (RViz Viewer)</h2>
+            <div class="map-container">
+                <p>🔴 RViz Viewer Placeholder</p>
+            </div>
+        </section>
+
+        <!-- 🔸 Robot Control Panel -->
+        <section id="robot-control" class="hidden">
+            <h2>Robot Control</h2>
+            <div class="control-buttons">
+                <button onclick="startRobot()">Start</button>
+                <button onclick="stopRobot()">Stop</button>
+                <button onclick="resetRobot()">Reset</button>
+            </div>
+            <div class="joystick">
+                <button onclick="moveRobot('up')">⬆</button><br>
+                <button onclick="moveRobot('left')">⬅</button>
+                <button onclick="moveRobot('right')">➡</button><br>
+                <button onclick="moveRobot('down')">⬇</button>
+            </div>
+        </section>
+
+        <!-- 🔸 Settings Page -->
+        <section id="settings" class="hidden">
+            <h2>Settings</h2>
+            <label for="ros-topic">ROS Topic:</label>
+            <input type="text" id="ros-topic" placeholder="/map">
+            <label for="view-mode">Map Style:</label>
+            <select id="view-mode">
+                <option>2D</option>
+                <option>3D</option>
+            </select>
+        </section>
+
+        <!-- 🔸 Documentation Page -->
+        <section id="docs" class="hidden">
+            <h2>Documentation</h2>
+            <ul>
+                <li><a href="https://ros.org/" target="_blank">ROS Tutorials</a></li>
+                <li><a href="#">Troubleshooting</a></li>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>

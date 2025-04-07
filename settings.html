@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Settings</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    :root {
+      --bg-color: #f7f9fc;
+      --card-bg: #ffffff;
+      --text-color: #1f2937;
+      --accent-color: #00d4ff;
+      --border-radius: 10px;
+      --font: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    .main-content {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .toggle-btn {
+      display: inline-block;
+      text-decoration: none;
+      color: var(--accent-color);
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: var(--text-color);
+    }
+
+    .settings-section {
+      background: var(--card-bg);
+      border: 1px solid #e5e7eb;
+      border-radius: var(--border-radius);
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .settings-section h3 {
+      margin-top: 0;
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #111827;
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    select, input[type="range"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      background-color: #f9fafb;
+      color: #111;
+      outline: none;
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 12px 0;
+    }
+
+    .toggle-switch input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .slider {
+      position: relative;
+      width: 46px;
+      height: 24px;
+      background-color: #d1d5db;
+      border-radius: 24px;
+      transition: 0.4s;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      border-radius: 50%;
+      transition: 0.4s;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent-color);
+    }
+
+    input:checked + .slider::before {
+      transform: translateX(22px);
+    }
+
+    .refresh-display {
+      font-size: 14px;
+      margin-top: 5px;
+      color: #6b7280;
+    }
+
+    @media (max-width: 600px) {
+      .main-content {
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <a href="index.html" class="toggle-btn">⬅ Back to Dashboard</a>
+    <h2>Settings</h2>
+
+    <!-- Theme Customization -->
+    <div class="settings-section">
+      <h3>Theme Customization</h3>
+      <label for="theme">Select Theme</label>
+      <select id="theme" onchange="changeTheme(this.value)">
+        <option value="auto">Auto</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+
+      
+
+    </div>
+
+    <!-- Notifications -->
+    <div class="settings-section">
+      <h3>Notifications & Alerts</h3>
+      <div class="toggle-switch">
+        <label for="enableAlerts">Enable Alerts</label>
+        <input type="checkbox" id="enableAlerts" checked>
+        <span class="slider"></span>
+      </div>
+      <div class="toggle-switch">
+        <label for="batteryLow">Battery Low Notification</label>
+        <input type="checkbox" id="batteryLow" checked>
+        <span class="slider"></span>
+      </div>
+      <div class="toggle-switch">
+        <label for="obstacleDetect">Obstacle Detection Notification</label>
+        <input type="checkbox" id="obstacleDetect" checked>
+        <span class="slider"></span>
+      </div>
+
+      <label for="alertSound">Alert Sound</label>
+      <select id="alertSound">
+        <option value="beep">Beep</option>
+        <option value="chime">Chime</option>
+        <option value="none">None</option>
+      </select>
+
+      <div class="toggle-switch">
+        <label for="vibration">Enable Vibration (Mobile)</label>
+        <input type="checkbox" id="vibration">
+        <span class="slider"></span>
+      </div>
+    </div>
+
+    <!-- Live Map -->
+    <div class="settings-section">
+      <h3>Live Map Options</h3>
+      <div class="toggle-switch">
+        <label for="gridVisibility">Show Occupancy Grid</label>
+        <input type="checkbox" id="gridVisibility" checked>
+        <span class="slider"></span>
+      </div>
+      <div class="toggle-switch">
+        <label for="robotTrail">Show Robot Trail Path</label>
+        <input type="checkbox" id="robotTrail">
+        <span class="slider"></span>
+      </div>
+
+      <label for="mapBg">Map Background</label>
+      <select id="mapBg">
+        <option value="#222">Dark</option>
+        <option value="#fff">Light</option>
+        <option value="#0e2a47">Blue</option>
+      </select>
+
+      <label for="refreshRate">Refresh Rate (ms)</label>
+      <input type="range" id="refreshRate" min="100" max="2000" value="1000" step="100"
+             on

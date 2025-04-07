@@ -1,0 +1,61 @@
+/* 🔹 Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* 🔹 Dark & Light Mode */
+.dark-mode { background: #020024; color: white; }
+.light-mode { background: #f5f5f5; color: black; }
+
+/* 🔹 Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #090979;
+}
+
+#mode-toggle {
+    background: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* 🔹 Navigation */
+nav {
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    background: #00d4ff;
+    padding-top: 20px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    margin: 15px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+/* 🔹 Main Content */
+main {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+/* 🔹 Hidden Sections */
+.hidden {
+    display: none;
+}

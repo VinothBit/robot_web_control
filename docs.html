@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Documentation</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f9fc;
+      color: #1f2937;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-content {
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .toggle-btn {
+      text-decoration: none;
+      color: #00d4ff;
+      font-weight: 500;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    section {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 25px 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    section h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #0f172a;
+    }
+
+    section p, li {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #374151;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    strong {
+      color: #111827;
+    }
+
+    code {
+      background: #e2e8f0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-content">
+    <a href="index.html" class="toggle-btn">⬅ Back to Dashboard</a>
+    <h2>📚 ROS Control Dashboard — User Guide</h2>
+
+    <section>
+      <h3>🤖 About the Robot</h3>
+      <p>This autonomous mobile robot is designed for indoor navigation, capable of detecting obstacles, planning routes, and sending real-time feedback through ROS (Robot Operating System). Equipped with LIDAR and ultrasonic sensors, it can be controlled manually or set to autonomous mode via the dashboard.</p>
+    </section>
+
+    <section>
+      <h3>🌐 Website Overview</h3>
+      <p>The dashboard is a web-based control panel built using HTML, CSS, JavaScript, and ROS libraries (roslib.js, ros3d.js, roslibjs-websocket). It serves as a central hub to:</p>
+      <ul>
+        <li>📡 Connect with ROS over WebSocket</li>
+        <li>🗺️ Visualize live map data using 3D visualization tools</li>
+        <li>🎮 Control the robot with manual commands</li>
+        <li>⚙️ Customize settings such as themes, alerts, and map options</li>
+        <li>📖 Access this documentation for guidance</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>📖 How to Use the Dashboard</h3>
+      <ul>
+        <li><strong>🗺️ Live Map:</strong> View the real-time position of the robot using <code>ros3djs</code>. The occupancy grid shows explored vs. unexplored areas.</li>
+        <li><strong>🎮 Control:</strong> Use arrow buttons or WASD keys to send velocity commands via <code>/cmd_vel</code> topic. Toggle autonomous/manual mode if available.</li>
+        <li><strong>⚙️ Settings:</strong> Switch between light/dark themes, enable/disable alerts, change map appearance, and adjust refresh rates and sound preferences.</li>
+        <li><strong>📚 Docs:</strong> Access this guide for quick reference and robot information.</li>
+      </ul>
+    </section>
+
+  
+
+    <section>
+      <h3>📎 Troubleshooting Guide</h3>
+      <ul>
+        <li>🚫 <strong>Having trouble connecting?</strong> Make sure your WebSocket URL, port (<code>9090</code>), and ROS bridge server are correctly set up and running.</li>
+        <li>🗺️ <strong>Is the map not showing?</strong> Check if the <code>/map</code> and <code>/tf</code> topics are actively publishing. You can use <code>rostopic list</code> to confirm.</li>
+        <li>🎮 <strong>Can't control the robot?</strong> Ensure the robot is in manual mode and that the <code>/cmd_vel</code> topic is available to receive velocity commands.</li>
+      </ul>
+    </section>
+    
+
+    
+  </div>
+  <div style="text-align: center; margin-bottom: 30px;">
+    <button onclick="window.print()" style="padding: 10px 20px; font-size: 16px; background: #00d4ff; color: white; border: none; border-radius: 6px; cursor: pointer;">🖨️ Print / Save as PDF</button>
+  </div>
+  
+</body>
+</html>
